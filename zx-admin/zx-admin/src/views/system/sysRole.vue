@@ -94,10 +94,11 @@
 
 <script setup>
 import {ref,onMounted} from 'vue'
-import {GetSysRoleListByPage ,SaveSysRole,UpdateSysRole,DeleteSysRole} from '@/api/sysRole'
+import {GetSysRoleListByPage ,SaveSysRole,UpdateSysRole,DeleteSysRole,GetSysRoleMenuIds,DoAssignMenuIdToSysRole} from '@/api/sysRole'
 import { ElMessage,ElMessageBox } from 'element-plus'
 
 /////////////////////////////分配菜单
+//查询用户菜单
 const defaultProps = {
   children: 'children',
   label: 'title',
@@ -118,6 +119,7 @@ const showAssignMenu = async row => {
   tree.value.setCheckedKeys(data.roleMenuIds)   // 进行数据回显
 }
 
+/////////////////////////////保存用户菜单
 const doAssign = async () => {
     const checkedNodes = tree.value.getCheckedNodes() ; // 获取选中的节点
     const checkedNodesIds = checkedNodes.map(node => {  // 获取选中的节点的id
