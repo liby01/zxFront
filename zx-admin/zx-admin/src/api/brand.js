@@ -21,11 +21,27 @@ export const SaveBrand = brand => {
 }
 
 // 修改品牌
-export const UpdateBrand = (brand) =>{
+export const UpdateBrand = (brand) => {
+  return request({
+    url: `${api_name}/update`,
+    method: 'put',
+    data: brand,
+  });
+};
+
+//用户删除
+export const DeleteBrand = (id) =>{
   return request({
     // ``模板字符串
-    url: `${api_name}/update`, //路径
-    method: 'put', //提交方式
-    data: brand, //其他参数
+    url: `${api_name}/deleteById/${id}`, //路径
+    method: 'delete' //提交方式
+  })
+}
+
+// 查询所有的品牌数据
+export const FindAllBrand = () => {
+  return request({
+    url: `${api_name}/findAll`,
+    method: 'get',
   })
 }

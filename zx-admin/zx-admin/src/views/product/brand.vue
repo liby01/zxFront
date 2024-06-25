@@ -39,7 +39,7 @@
             <el-button type="primary" size="small" @click="editBrand(scope.row)">
                 修改
             </el-button>
-            <el-button type="danger" size="small">
+            <el-button type="danger" size="small" @click="deleteById(scope.row)">
                 删除
             </el-button>
         </el-table-column>
@@ -59,10 +59,25 @@
 
 <script setup>
 import { ref , onMounted } from 'vue'
-import { GetBrandPageList , SaveBrand , UpdateBrand} from '@/api/brand.js'
+import { GetBrandPageList , SaveBrand , UpdateBrand, DeleteBrand} from '@/api/brand.js'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useApp } from '@/pinia/modules/app'
 
+/////////////////////////////////////////////////////删除品牌 start
+const deleteById = (row)=>{
+    //弹窗
+    ElMessageBox.confirm('此操作将永久删除该记录, 是否继续?', 'Warning', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+    }).then(async () => {
+       const {code} = await DeleteBrand(row.id)
+       if(code === 200) {
+            ElMessage.success("操作成功")
+            fetchData()
+       }
+    })
+}
 
 
 //////////////////////////////////////////////////////////////////添加-修改
@@ -108,17 +123,7 @@ const saveOrUpdate = async () => {
   if (!brand.value.id) {
     saveData()
   }else{
-    const {code} = await UpdateBrand(brand.value)
-    if(code===200){
-            //关闭弹窗
-            dialogVisible.value = false
-            ElMessage.success("操作成功")
-            //刷新页面
-            fetchData()
-        }else if(code===209){
-            const {message} = await UpdateBrand(brand.value)
-            ElMessage.success(message)
-        }
+    updateData()
   }
 }
 
@@ -134,13 +139,19 @@ const saveData = async () => {
 
 // 修改
 const updateData = async () => {
-  await UpdateBrand(brand.value)
-  //关闭弹窗
-  dialogVisible.value = false
-  ElMessage.success('操作成功')
-  //刷新页面
-  fetchData()
-}
+  try {
+    const response = await UpdateBrand(brand.value);
+    if (response.code === 200) {
+      dialogVisible.value = false;
+      ElMessage.success('操作成功');
+      fetchData();
+    } else {
+      ElMessage.error('操作失败');
+    }
+  } catch (error) {
+    ElMessage.error('请求失败');
+  }
+};
 
 
 //////////////////////////////////////////////////////////////////列表
