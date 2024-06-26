@@ -37,13 +37,13 @@ export const DeleteCategoryBrand = (id) => {
   });
 }
 
-// // 根据分类的id获取品牌数据
-// export const FindBrandByCategoryId = categoryId => {
-//     return request({
-//       url: `${api_name}/findBrandByCategoryId/${categoryId}`,
-//       method: 'get',
-//     })
-// }
+// 根据分类的id获取品牌数据
+export const FindBrandByCategoryId = categoryId => {
+    return request({
+      url: `${api_name}/findBrandByCategoryId/${categoryId}`,
+      method: 'get',
+    })
+}
 
 //
 // export function getCategoryBrands() {

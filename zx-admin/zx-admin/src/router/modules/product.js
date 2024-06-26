@@ -3,7 +3,7 @@ const category = () => import('@/views/product/category.vue')
 const brand = () => import('@/views/product/brand.vue')
 const categoryBrand = () => import('@/views/product/categoryBrand.vue')
 const productSpec = () => import('@/views/product/productSpec.vue')
-// const product = () => import('@/views/product/product.vue')
+const product = () => import('@/views/product/product.vue')
 
 export default [
   {
@@ -47,14 +47,14 @@ export default [
           title: '商品规格',
         },
       },
-      // {
-      //   path: '/product',
-      //   name: 'product',
-      //   component: product,
-      //   meta: {
-      //     title: '商品管理',
-      //   },
-      // },
+      {
+        path: '/product',
+        name: 'product',
+        component: product,
+        meta: {
+          title: '商品管理',
+        },
+      },
     ],
   },
 ]

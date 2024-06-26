@@ -111,29 +111,29 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 
 
 /////////////////////////////////////////////////////删除品牌 start
-const deleteCategoryBrand = (row) => {
-  console.log('Delete function called with row:', row); // 添加日志
-  // 弹窗
-  ElMessageBox.confirm('此操作将永久删除该记录, 是否继续?', 'Warning', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  }).then(async () => {
-    try {
-      const response = await DeleteCategoryBrand(row.id);
-      console.log('Delete response:', response); // 添加日志
-      if (response.code === 200) {
-        ElMessage.success('操作成功');
-        fetchData();
-      } else {
-        ElMessage.error('删除失败');
-      }
-    } catch (error) {
-      ElMessage.error('删除失败');
-      console.error('Delete error:', error); // 添加日志
-    }
-  });
-};
+// const deleteCategoryBrand = (row) => {
+//   console.log('Delete function called with row:', row); // 添加日志
+//   // 弹窗
+//   ElMessageBox.confirm('此操作将永久删除该记录, 是否继续?', 'Warning', {
+//     confirmButtonText: '确定',
+//     cancelButtonText: '取消',
+//     type: 'warning',
+//   }).then(async () => {
+//     try {
+//       const response = await DeleteCategoryBrand(row.id);
+//       console.log('Delete response:', response); // 添加日志
+//       if (response.code === 200) {
+//         ElMessage.success('操作成功');
+//         fetchData();
+//       } else {
+//         ElMessage.error('删除失败');
+//       }
+//     } catch (error) {
+//       ElMessage.error('删除失败');
+//       console.error('Delete error:', error); // 添加日志
+//     }
+//   });
+// };
 
 ////////////////////////////////////////////////////////////////////////////////////添加-修改
 const defaultForm = {       //页面表单数据
@@ -151,15 +151,15 @@ const addShow = () => {
     dialogVisible.value = true
 }
 
-//点击修改按钮弹出框，数据回显
-const editCategoryBrand = (row)=>{
-    //清空表单数据
-    categoryBrand.value = {}
-    //回显
-    categoryBrand.value = {...row}
-    //弹出
-    dialogVisible.value = true 
-}
+// //点击修改按钮弹出框，数据回显
+// const editCategoryBrand = (row)=>{
+//     //清空表单数据
+//     categoryBrand.value = {}
+//     //回显
+//     categoryBrand.value = {...row}
+//     //弹出
+//     dialogVisible.value = true 
+// }
 
 //提交保存与修改
 const saveOrUpdate = () => {
@@ -176,9 +176,10 @@ const saveOrUpdate = () => {
   categoryBrand.value.categoryId = categoryBrand.value.categoryId[2]
   if (!categoryBrand.value.id) {
     saveData()
-  } else{
-    updateData()
-  }
+  } 
+  // else{
+  //   updateData()
+  // }
 }
 
 // 新增
@@ -188,13 +189,13 @@ const saveData = async () => {
   ElMessage.success('操作成功')
   fetchData()
 }
-// 修改
-const updateData = async () => {
-  await UpdateCategoryBrand(categoryBrand.value)
-  dialogVisible.value = false
-  ElMessage.success('操作成功')
-  fetchData()
-}
+// // 修改
+// const updateData = async () => {
+//   await UpdateCategoryBrand(categoryBrand.value)
+//   dialogVisible.value = false
+//   ElMessage.success('操作成功')
+//   fetchData()
+// }
 
 //////////////////////////////////////列表
 const props = {
